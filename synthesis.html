@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <title>Synthesis</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+  <h1>Synthesis</h1>
+  <div id="output"></div>
+  <br>
+  <textarea id="input" rows="4" cols="50">Welcome to the speech-synthesis part</textarea>
+  <br><br>
+  <button id="speak">Speak</button>
+ 
+  <script>
+      function speak(){
+	    console.log("speaking...");
+	    var input = $("#input").val();
+		speechSynthesis.speak(new SpeechSynthesisUtterance(input));
+	  }
+	  
+	  $("#speak").click(speak);
+	  
+  </script>
+
+</body>
+</html>

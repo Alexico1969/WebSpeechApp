@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <title>WebSpeechApp</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+  <h1>WebSpeechApp</h1>
+  <br>
+  <img class="state" src="koala.jpg">
+  <br>
+  <div id="output">Say 'ACTIVATE' to activate</div>
+  
+ 
+  <script>
+    var active = false;
+	var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
+	var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent;
+	var recognition = new SpeechRecognition();
+  
+	recognition.continuous = true;
+	recognition.lang = 'en-US';
+	recognition.interimResults = false;
+	recognition.maxAlternatives = 1;
+  
+
+    recognition.start();
+	console.log("SpeechEngine started!");
+	
+	recognition.onresult = function(event){
+	    var index = event.resultIndex;
+		var result = event.results[index][0].transcript;
+		var command = result.toLowerCase();
+		command = command.replace(' ','');
+		var output = "I heard: " + command;
+		console.log(output);
+		$("#output").text(command);
+		if (active == true){
+			if (command == "synthesis"){
+				window.location.replace("synthesis.html");
+			} else if (command == "search"){
+				window.location.replace("search.html");
+			} else if (command == "dictaphone"){
+				window.location.replace("dictaphone.html");
+			}
+		} else if (command == "activate"){
+		   active = true;
+		   $("#output").html("");
+		   $(".state").attr("src","active3.png");
+		   $(".state").addClass("animated");
+		   $("#output").css("color", "red");
+		}
+		
+	}
+	  
+  </script>
+
+</body>
+</html>
